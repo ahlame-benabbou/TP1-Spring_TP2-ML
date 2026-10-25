@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head><meta charset="UTF-8"><title>Médicaments</title></head>
+<body>
+<h2>Médicaments disponibles</h2>
+<a sec:authorize="hasAnyRole('ADMIN','PHARMACIEN')" th:href="@{/medicaments/nouveau}">+ Ajouter</a>
+<table border="1" cellpadding="5">
+    <tr><th>Nom</th><th>Prix</th><th>Stock</th><th sec:authorize="hasAnyRole('ADMIN','PHARMACIEN')">Action</th></tr>
+    <tr th:each="m : ${medicaments}">
+        <td th:text="${m.nom}"></td>
+        <td th:text="${m.prix}"></td>
+        <td th:text="${m.quantite}"></td>
+        <td sec:authorize="hasAnyRole('ADMIN','PHARMACIEN')">
+            <a th:href="@{/medicaments/modifier/{id}(id=${m.id})}">Modifier</a>
+        </td>
+    </tr>
+</table>
+<a th:href="@{/home}">Retour</a>
+</body>
+</html>

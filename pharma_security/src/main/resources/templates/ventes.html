@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Ventes</title></head>
+<body>
+<h2>Enregistrer une vente</h2>
+<table border="1" cellpadding="5">
+    <tr><th>Nom</th><th>Prix</th><th>Stock</th><th>Action</th></tr>
+    <tr th:each="m : ${medicaments}">
+        <td th:text="${m.nom}"></td>
+        <td th:text="${m.prix}"></td>
+        <td th:text="${m.quantite}"></td>
+        <td>
+            <form th:action="@{/ventes/vendre/{id}(id=${m.id})}" method="post">
+                <button type="submit" th:disabled="${m.quantite == 0}">Vendre 1</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<a th:href="@{/home}">Retour</a>
+</body>
+</html>
